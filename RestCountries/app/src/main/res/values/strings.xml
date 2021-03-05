@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">RestCountries</string>
+    <string name="url">https://restcountries.eu/rest/v2/all</string>
+    <string name="country">country</string>
+    <string name="backspace">press the back button again</string>
+    <string-array name="filter">
+        <item>Name</item>
+        <item>Area</item>
+    </string-array>
 </resources>

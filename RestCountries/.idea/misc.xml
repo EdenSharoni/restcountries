@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/edens/AppData/Local/Android/Sdk/platforms/android-30/data/res/layout/simple_spinner_dropdown_item.xml" value="0.1" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1359375" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable/ic_arrow_downward.xml" value="0.1140625" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable/ic_arrow_upward.xml" value="0.1140625" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable/ic_filter.xml" value="0.10625" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable/ic_image.xml" value="0.1359375" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1359375" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable/image_background.xml" value="0.1359375" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/drawable/image_foreground.xml" value="0.1359375" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/layout/activity_country.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/layout/activity_main.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/layout/country.xml" value="0.11979166666666667" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/mipmap-anydpi-v26/image.xml" value="0.1" />
+        <entry key="..\:/Users/edens/Documents/GitHub/restcountries/RestCountries/app/src/main/res/mipmap-anydpi-v26/image_round.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
