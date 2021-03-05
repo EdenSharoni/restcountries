@@ -1,28 +1,38 @@
 package com.example.restcountries;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.restcountries.adapter.CountryAdapter;
 import com.example.restcountries.model.Country;
 
 import java.util.ArrayList;
 
-public class CountryActivity extends AppCompatActivity {
+import static com.example.restcountries.utils.App.fetchDataByCode;
+import static com.example.restcountries.utils.App.infoToast;
+
+public class CountryActivity extends AppCompatActivity implements CountryAdapter.OnCountryListener {
+
     private static final String TAG = CountryActivity.class.getSimpleName();
 
     //XML
     private RecyclerView mRecyclerView;
-    private CountryAdapter mAdapter;
-
     private TextView mTitle;
 
-    // Contains all photos url
+    //Adapters
+    private CountryAdapter mAdapter;
+
+    // Contains all countries
     private ArrayList<Country> mCountryArray = new ArrayList<>();
 
     @Override
@@ -32,24 +42,26 @@ public class CountryActivity extends AppCompatActivity {
 
         // Find view from xml
         mTitle = findViewById(R.id.title);
+        mRecyclerView = findViewById(R.id.recycler_viewer_borders);
 
-        Country country = getIntent().getParcelableExtra(getResources().getString(R.string.country));
-
-        Log.d(TAG, "nativeName: " + country.getNativeName());
-        Log.d(TAG, "name: " + country.getName());
-        Log.d(TAG, "area: " + country.getArea());
+        Country country = getIntent().getParcelableExtra(getString(R.string.country));
+        
         Log.d(TAG, "borders: " + country.getBorders());
+        ArrayList<String> borders = country.getBorders();
+        mTitle.setText(country.getName() + getString(R.string.borders));
 
-        mTitle.setText(country.getName());
+        //Initialize recyclerview and adapter
+        mAdapter = new CountryAdapter(mCountryArray, this);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mAdapter);
 
-//
-//        // Find view from xml
-//        mRecyclerView = findViewById(R.id.recycler_viewer);
-//
-//        // Initialize recycler view and adpater
-//        mAdapter = new CountryAdapter(mCountryArray);
-//        mRecyclerView.setHasFixedSize(true);
-//        mRecyclerView.setAdapter(mAdapter);
+        for (int i = 0; i < country.getBorders().size(); i++) {
+            fetchDataByCode(mCountryArray, mAdapter, country.getBorders().get(i));
+        }
+    }
+
+    @Override
+    public void onCountryClick(int position, View viewItem) {
 
     }
 }

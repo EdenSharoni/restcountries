@@ -6,29 +6,29 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 public class Country implements Parcelable {
-    private String nativeName;
-    private String name;
-    private Long area;
-    private ArrayList<String> borders;
+    private String mNativeName;
+    private String mName;
+    private Long mArea;
+    private ArrayList<String> mBorders;
 
 
     // Constructor
     public Country(String nativeName, String name, Long area, ArrayList<String> borders) {
-        this.nativeName = nativeName;
-        this.name = name;
-        this.area = area;
-        this.borders = borders;
+        this.mNativeName = nativeName;
+        this.mName = name;
+        this.mArea = area;
+        this.mBorders = borders;
     }
 
     protected Country(Parcel in) {
-        nativeName = in.readString();
-        name = in.readString();
+        mNativeName = in.readString();
+        mName = in.readString();
         if (in.readByte() == 0) {
-            area = null;
+            mArea = null;
         } else {
-            area = in.readLong();
+            mArea = in.readLong();
         }
-        borders = in.createStringArrayList();
+        mBorders = in.createStringArrayList();
     }
 
     public static final Creator<Country> CREATOR = new Creator<Country>() {
@@ -44,35 +44,35 @@ public class Country implements Parcelable {
     };
 
     public String getNativeName() {
-        return nativeName;
+        return mNativeName;
     }
 
-    public void setNativeName(String nativeName) {
-        this.nativeName = nativeName;
+    public void setNativeName(String mNativeName) {
+        this.mNativeName = mNativeName;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String mName) {
+        this.mName = mName;
     }
 
     public Long getArea() {
-        return area;
+        return mArea;
     }
 
-    public void setArea(Long area) {
-        this.area = area;
+    public void setArea(Long mArea) {
+        this.mArea = mArea;
     }
 
     public ArrayList<String> getBorders() {
-        return borders;
+        return mBorders;
     }
 
-    public void setBorders(ArrayList<String> borders) {
-        this.borders = borders;
+    public void setBorders(ArrayList<String> mBorders) {
+        this.mBorders = mBorders;
     }
 
     @Override
@@ -82,14 +82,14 @@ public class Country implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(nativeName);
-        parcel.writeString(name);
-        if (area == null) {
+        parcel.writeString(mNativeName);
+        parcel.writeString(mName);
+        if (mArea == null) {
             parcel.writeByte((byte) 0);
         } else {
             parcel.writeByte((byte) 1);
-            parcel.writeLong(area);
+            parcel.writeLong(mArea);
         }
-        parcel.writeStringList(borders);
+        parcel.writeStringList(mBorders);
     }
 }

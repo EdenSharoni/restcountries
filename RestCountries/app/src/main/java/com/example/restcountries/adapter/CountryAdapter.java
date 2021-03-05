@@ -38,8 +38,8 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
         Country currentCountry = mCountryList.get(position);
         holder.mNativeName.setText(currentCountry.getNativeName());
-        holder.name.setText(currentCountry.getName());
-        holder.area.setText(currentCountry.getArea().toString());
+        holder.mName.setText(currentCountry.getName());
+        holder.mArea.setText(currentCountry.getArea().toString());
     }
 
     @Override
@@ -49,15 +49,15 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
 
     public static class CountryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView mNativeName;
-        private final TextView name;
-        private final TextView area;
+        private final TextView mName;
+        private final TextView mArea;
         private final OnCountryListener mOnCountryListener;
 
         public CountryViewHolder(@NonNull View itemView, OnCountryListener mOnCountryListener) {
             super(itemView);
             this.mNativeName = itemView.findViewById(R.id.nativeName);
-            this.name = itemView.findViewById(R.id.name);
-            this.area = itemView.findViewById(R.id.area);
+            this.mName = itemView.findViewById(R.id.name);
+            this.mArea = itemView.findViewById(R.id.area);
 
             this.mOnCountryListener = mOnCountryListener;
             itemView.setOnClickListener(this);
