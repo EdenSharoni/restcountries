@@ -3,10 +3,11 @@ package com.example.restcountries;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,7 @@ import static com.example.restcountries.utils.App.fetchAllData;
 import static com.example.restcountries.utils.App.infoToast;
 import static com.example.restcountries.utils.App.sort;
 
-public class MainActivity extends AppCompatActivity implements CountryAdapter.OnCountryListener, AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements CountryAdapter.OnCountryListener, View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements CountryAdapter.On
     private RecyclerView mRecyclerView;
     private ImageView mFilterAscOrDes;
     private Spinner mSpinner;
+    private ProgressBar mProgressBar;
+    private TextView mTextViewAscOrDes;
 
     //Adapter
     private CountryAdapter mAdapter;
@@ -37,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements CountryAdapter.On
     private ArrayList<Country> mCountryArray = new ArrayList<>();
 
     private int mBackTwice = 1;
-    private String mFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +47,15 @@ public class MainActivity extends AppCompatActivity implements CountryAdapter.On
         setContentView(R.layout.activity_main);
 
         // Find view from xml
-        mRecyclerView = findViewById(R.id.recycler_viewer);
+        mRecyclerView = findViewById(R.id.recyclerViewer);
         mFilterAscOrDes = findViewById(R.id.filterAscOrDes);
         mSpinner = findViewById(R.id.spinner);
+        mProgressBar = findViewById(R.id.progressBar);
+        mTextViewAscOrDes = findViewById(R.id.textViewAscOrDes);
 
         // Initialize spinner and adapter
         mSpinnerAdapter = new ArrayAdapter<>(MainActivity.this,
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.filter));
-        mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.filter));
         mSpinner.setAdapter(mSpinnerAdapter);
 
         //Initialize recyclerview and adapter
@@ -60,10 +63,9 @@ public class MainActivity extends AppCompatActivity implements CountryAdapter.On
         mRecyclerView.setHasFixedSize(true);
 
         //Listeners
-        mSpinner.setOnItemSelectedListener(this);
         mFilterAscOrDes.setOnClickListener(this);
 
-        fetchAllData(mCountryArray, mAdapter, mRecyclerView);
+        fetchAllData(mCountryArray, mAdapter, mRecyclerView, mProgressBar);
     }
 
     @Override
@@ -82,25 +84,16 @@ public class MainActivity extends AppCompatActivity implements CountryAdapter.On
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        mFilter = adapterView.getItemAtPosition(i).toString();
-        sort(mFilter, mFilterAscOrDes.getTag().toString(), mCountryArray, mAdapter);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    @Override
     public void onClick(View view) {
         if (view.getTag().equals(getString(R.string.ASC))) {
             view.setTag(getString(R.string.DSC));
             mFilterAscOrDes.setImageResource(R.drawable.ic_arrow_upward);
+            mTextViewAscOrDes.setText(R.string.DSC);
         } else {
             view.setTag(getString(R.string.ASC));
             mFilterAscOrDes.setImageResource(R.drawable.ic_arrow_downward);
+            mTextViewAscOrDes.setText(R.string.ASC);
         }
-        sort(mFilter, view.getTag().toString(), mCountryArray, mAdapter);
+        sort(mSpinner.getSelectedItem().toString(), view.getTag().toString(), mCountryArray, mAdapter);
     }
 }

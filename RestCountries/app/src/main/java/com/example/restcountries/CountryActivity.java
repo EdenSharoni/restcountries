@@ -3,6 +3,8 @@ package com.example.restcountries;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import com.example.restcountries.model.Country;
 
 import java.util.ArrayList;
 
+import static com.example.restcountries.utils.App.fetchBorders;
 import static com.example.restcountries.utils.App.fetchDataByCode;
 import static com.example.restcountries.utils.App.infoToast;
 
@@ -28,6 +31,8 @@ public class CountryActivity extends AppCompatActivity implements CountryAdapter
     //XML
     private RecyclerView mRecyclerView;
     private TextView mTitle;
+    private TextView mNoBordersText;
+    private ProgressBar mProgressBar;
 
     //Adapters
     private CountryAdapter mAdapter;
@@ -42,26 +47,23 @@ public class CountryActivity extends AppCompatActivity implements CountryAdapter
 
         // Find view from xml
         mTitle = findViewById(R.id.title);
-        mRecyclerView = findViewById(R.id.recycler_viewer_borders);
+        mRecyclerView = findViewById(R.id.recyclerViewerBorders);
+        mNoBordersText = findViewById(R.id.noBordersText);
+        mProgressBar = findViewById(R.id.progressBarCountry);
 
         Country country = getIntent().getParcelableExtra(getString(R.string.country));
-        
-        Log.d(TAG, "borders: " + country.getBorders());
-        ArrayList<String> borders = country.getBorders();
-        mTitle.setText(country.getName() + getString(R.string.borders));
+
+        mTitle.setText(country.getName() + " " + getString(R.string.borders));
 
         //Initialize recyclerview and adapter
         mAdapter = new CountryAdapter(mCountryArray, this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-
-        for (int i = 0; i < country.getBorders().size(); i++) {
-            fetchDataByCode(mCountryArray, mAdapter, country.getBorders().get(i));
-        }
+        fetchBorders(mCountryArray, country.getBorders(), mAdapter, mRecyclerView, mProgressBar, mNoBordersText);
     }
 
     @Override
     public void onCountryClick(int position, View viewItem) {
-
+        //nothing
     }
 }

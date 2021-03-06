@@ -1,25 +1,35 @@
 <resources>
     <string name="app_name">RestCountries</string>
+    <string name="backspace">press the back button again</string>
+
+    <!--URL-->
     <string name="url">https://restcountries.eu/rest/v2/all</string>
     <string name="urlByCode">https://restcountries.eu/rest/v2/alpha/</string>
-    <string name="country">country</string>
-    <string name="backspace">press the back button again</string>
-    <string name="borders"> Borders</string>
+    <!--URL-->
+
+
+    <!--Errors-->
+    <string name="fetchError">Failed to fetch, please try again</string>
+    <string name="no_borders_found">This country has no borders</string>
+    <!--Errors-->
+
     <!--Filter properties-->
-    <string name="ASC">ascending</string>
-    <string name="DSC">descending</string>
+    <string name="ASC">ASC</string>
+    <string name="DSC">DSC</string>
     <!--Filter properties-->
 
     <!--Country properties-->
+    <string name="country">country</string>
     <string name="nativeName">nativeName</string>
     <string name="name">name</string>
     <string name="area">area</string>
+    <string name="borders">borders</string>
     <!--Country properties-->
 
-    <!--Sinner properties-->
+    <!--Spinner properties-->
     <string-array name="filter">
         <item>Name</item>
-        <item>Area</item>
+        <item>Area Size</item>
     </string-array>
     <!--Sinner properties-->
 </resources>

@@ -3,7 +3,11 @@ package com.example.restcountries.utils;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,14 +41,11 @@ public class App extends Application {
 
     //HTTP Request
     private static RequestQueue mRequestQueue;
-    private static JsonArrayRequest mJsonArrayRequest;
-    private static JsonObjectRequest mJsonObjectRequest;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
-
         // Http request queue
         mRequestQueue = Volley.newRequestQueue(this);
     }
@@ -54,7 +55,7 @@ public class App extends Application {
     }
 
     public static void infoToast(String str) {
-        Toast.makeText(mContext, str, Toast.LENGTH_SHORT);
+        Toast.makeText(mContext, str, Toast.LENGTH_SHORT).show();
     }
 
     public static void SortByNameAscending(ArrayList<Country> mCountryArray) {
@@ -75,58 +76,73 @@ public class App extends Application {
 
     public static void sort(String mFilter, String tag, ArrayList<Country> mCountryArray, CountryAdapter mAdapter) {
         if (mFilter.equals(mContext.getResources().getStringArray(R.array.filter)[0])) {
-            if (tag.equals(mContext.getString(R.string.ASC))) {
-                Log.d(TAG, "SortByNameAscending");
-                SortByNameAscending(mCountryArray);
-            } else {
-                Log.d(TAG, "SortByNameDescending");
-                SortByNameDescending(mCountryArray);
-            }
+            if (tag.equals(mContext.getString(R.string.ASC))) SortByNameAscending(mCountryArray);
+            else SortByNameDescending(mCountryArray);
         } else {
-            if (tag.equals(mContext.getString(R.string.ASC))) {
-                Log.d(TAG, "SortAreaAscending");
-                SortAreaAscending(mCountryArray);
-            } else {
-                Log.d(TAG, "SortAreaDescending");
-                SortAreaDescending(mCountryArray);
-            }
+            if (tag.equals(mContext.getString(R.string.ASC))) SortAreaAscending(mCountryArray);
+            else SortAreaDescending(mCountryArray);
         }
         mAdapter.notifyDataSetChanged();
     }
 
 
-    public static void fetchAllData(ArrayList<Country> mCountryArray, CountryAdapter mAdapter, RecyclerView mRecyclerView) {
-        mJsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mContext.getString(R.string.url), null, response -> {
+    public static void fetchAllData(ArrayList<Country> mCountryArray, CountryAdapter mAdapter, RecyclerView mRecyclerView, ProgressBar mProgressBar) {
+        JsonArrayRequest mJsonArrayRequest = new JsonArrayRequest(Request.Method.GET, mContext.getString(R.string.url), null, response -> {
             try {
-                for (int i = 0; i < 50; i++) {
+                for (int i = 0; i < response.length(); i++) {
                     JSONObject currentCountry = response.getJSONObject(i);
                     mNativeName = currentCountry.optString(mContext.getString(R.string.nativeName));
                     mName = currentCountry.optString(mContext.getString(R.string.name));
                     mArea = currentCountry.optLong(mContext.getString(R.string.area));
                     mBorders = new ArrayList<>();
-                    mBordersArray = currentCountry.optJSONArray("borders");
+                    mBordersArray = currentCountry.optJSONArray(mContext.getString(R.string.borders));
                     if (mBordersArray != null) for (int j = 0; j < mBordersArray.length(); j++)
                         mBorders.add(mBordersArray.get(j).toString());
                     Country country = new Country(mNativeName, mName, mArea, mBorders);
                     mCountryArray.add(country);
                 }
                 mRecyclerView.setAdapter(mAdapter);
+
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
+                SortByNameAscending(mCountryArray);
             } catch (JSONException e) {
+                mProgressBar.setVisibility(View.GONE);
                 infoToast(e.getMessage());
             }
-        }, error -> infoToast(error.getMessage()));
+        }, error -> {
+            mProgressBar.setVisibility(View.GONE);
+            infoToast(mContext.getString(R.string.fetchError));
+        });
         mRequestQueue.add(mJsonArrayRequest);
     }
 
-    public static void fetchDataByCode(ArrayList<Country> mCountryArray, CountryAdapter mAdapter, String code) {
-        mJsonObjectRequest = new JsonObjectRequest(Request.Method.GET, mContext.getString(R.string.urlByCode) + code, null, response -> {
+    public static void fetchDataByCode(ArrayList<Country> mCountryArray, CountryAdapter mAdapter, String url, ProgressBar mProgressBar) {
+        JsonObjectRequest mJsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             mNativeName = response.optString(mContext.getString(R.string.nativeName));
             mName = response.optString(mContext.getString(R.string.name));
             mArea = response.optLong(mContext.getString(R.string.area));
             Country country = new Country(mNativeName, mName, mArea, null);
             mCountryArray.add(country);
             mAdapter.notifyDataSetChanged();
-        }, error -> infoToast(error.getMessage()));
+        }, error -> {
+            mProgressBar.setVisibility(View.GONE);
+            infoToast(mContext.getString(R.string.fetchError));
+        });
         mRequestQueue.add(mJsonObjectRequest);
+    }
+
+    public static void fetchBorders(ArrayList<Country> mCountryArray, ArrayList<String> borders, CountryAdapter mAdapter, RecyclerView mRecyclerView, ProgressBar mProgressBar, TextView mNoBordersText) {
+        if (borders.size() > 0)
+            for (int i = 0; i < borders.size(); i++)
+                fetchDataByCode(mCountryArray, mAdapter, mContext.getString(R.string.urlByCode) + borders.get(i), mProgressBar);
+        if (borders.size() == 0) {
+            mRecyclerView.setVisibility(View.GONE);
+            mNoBordersText.setVisibility(View.VISIBLE);
+        } else {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mNoBordersText.setVisibility(View.GONE);
+        }
+        mProgressBar.setVisibility(View.GONE);
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CountryActivity">
-
+    
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -16,13 +16,34 @@
         android:textColor="@color/black"
         android:textSize="30dp" />
 
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_viewer_borders"
+        android:id="@+id/recyclerViewerBorders"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/country" />
 
+    <TextView
+        android:id="@+id/noBordersText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/no_borders_found"
+        android:textColor="@color/colorAccent"
+        android:textSize="30dp"
+        android:visibility="gone" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
 
 </LinearLayout>

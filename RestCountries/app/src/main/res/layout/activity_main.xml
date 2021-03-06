@@ -16,37 +16,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_filter" />
 
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/filterAscOrDes"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentEnd="true"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_downward"
-            android:tag="@string/DSC" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewAscOrDes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="5dp"
+                android:text="@string/ASC"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/filterAscOrDes"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_arrow_downward"
+                android:tag="@string/ASC" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_viewer"
+        android:id="@+id/recyclerViewer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/country" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
 
 </LinearLayout>

@@ -17,7 +17,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
 
     private static final String TAG = CountryAdapter.class.getSimpleName();
 
-    // Contains all images
+    // Contains all countries
     private final ArrayList<Country> mCountryList;
     //Country Click Listener
     private final OnCountryListener mOnCountryListener;
@@ -39,7 +39,6 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
         Country currentCountry = mCountryList.get(position);
         holder.mNativeName.setText(currentCountry.getNativeName());
         holder.mName.setText(currentCountry.getName());
-        holder.mArea.setText(currentCountry.getArea().toString());
     }
 
     @Override
@@ -50,15 +49,12 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
     public static class CountryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView mNativeName;
         private final TextView mName;
-        private final TextView mArea;
         private final OnCountryListener mOnCountryListener;
 
         public CountryViewHolder(@NonNull View itemView, OnCountryListener mOnCountryListener) {
             super(itemView);
             this.mNativeName = itemView.findViewById(R.id.nativeName);
             this.mName = itemView.findViewById(R.id.name);
-            this.mArea = itemView.findViewById(R.id.area);
-
             this.mOnCountryListener = mOnCountryListener;
             itemView.setOnClickListener(this);
         }
