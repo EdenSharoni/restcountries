@@ -1,28 +1,19 @@
 package com.example.restcountries;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.restcountries.adapter.CountryAdapter;
 import com.example.restcountries.model.Country;
 
 import java.util.ArrayList;
 
 import static com.example.restcountries.utils.App.fetchBorders;
-import static com.example.restcountries.utils.App.fetchDataByCode;
-import static com.example.restcountries.utils.App.infoToast;
 
 public class CountryActivity extends AppCompatActivity implements CountryAdapter.OnCountryListener {
 
@@ -51,14 +42,17 @@ public class CountryActivity extends AppCompatActivity implements CountryAdapter
         mNoBordersText = findViewById(R.id.noBordersText);
         mProgressBar = findViewById(R.id.progressBarCountry);
 
+        //get chosen country from parcelable
         Country country = getIntent().getParcelableExtra(getString(R.string.country));
 
+        //set title text
         mTitle.setText(country.getName() + " " + getString(R.string.borders));
 
         //Initialize recyclerview and adapter
         mAdapter = new CountryAdapter(mCountryArray, this);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+
         fetchBorders(mCountryArray, country.getBorders(), mAdapter, mRecyclerView, mProgressBar, mNoBordersText);
     }
 

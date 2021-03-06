@@ -2,10 +2,7 @@ package com.example.restcountries.utils;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -47,6 +43,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+
         // Http request queue
         mRequestQueue = Volley.newRequestQueue(this);
     }
@@ -144,9 +141,12 @@ public class App extends Application {
         if (borders.size() > 0) {
             for (int i = 0; i < borders.size(); i++)
                 fetchDataByCode(mCountryArray, mAdapter, mProgressBar, borders, i);
+
+            //set visibility
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoBordersText.setVisibility(View.GONE);
         } else {
+            //set visibility
             mProgressBar.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.GONE);
             mNoBordersText.setVisibility(View.VISIBLE);
