@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CountryActivity">
-    
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Title"
-        android:textColor="@color/black"
         android:textSize="30dp" />
 
 

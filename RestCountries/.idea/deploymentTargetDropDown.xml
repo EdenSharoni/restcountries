@@ -3,15 +3,15 @@
   <component name="deploymentTargetDropDown">
     <targetSelectedWithDropDown>
       <Target>
-        <type value="QUICK_BOOT_TARGET" />
+        <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\edens\.android\avd\Pixel_3a_XL_Edited_API_29.avd" />
+            <type value="SERIAL_NUMBER" />
+            <value value="RF8M91XQ8LL" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2021-03-04T10:36:52.245412300Z" />
+    <timeTargetWasSelectedWithDropDown value="2021-03-06T16:48:39.147837500Z" />
   </component>
 </project>

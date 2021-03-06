@@ -37,8 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:text="@string/ASC"
-            android:textColor="@color/black" />
+            android:text="@string/ASC"/>
 
         <ImageView
             android:id="@+id/arrowFilterAscOrDsc"
